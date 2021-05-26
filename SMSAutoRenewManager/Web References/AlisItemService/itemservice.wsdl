@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="PriceFetchByItemIDQuantityAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="itemID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PriceFetchByItemIDQuantityAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PriceFetchByItemIDQuantityAccountResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PriceFetchByItemIDQuantityAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:PriceFetchByItemIDQuantityAccount" />
+  </wsdl:message>
+  <wsdl:message name="PriceFetchByItemIDQuantityAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:PriceFetchByItemIDQuantityAccountResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ItemServiceSoap">
+    <wsdl:operation name="PriceFetchByItemIDQuantityAccount">
+      <wsdl:input message="tns:PriceFetchByItemIDQuantityAccountSoapIn" />
+      <wsdl:output message="tns:PriceFetchByItemIDQuantityAccountSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ItemServiceSoap" type="tns:ItemServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PriceFetchByItemIDQuantityAccount">
+      <soap:operation soapAction="http://tempuri.org/PriceFetchByItemIDQuantityAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ItemServiceSoap12" type="tns:ItemServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PriceFetchByItemIDQuantityAccount">
+      <soap12:operation soapAction="http://tempuri.org/PriceFetchByItemIDQuantityAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ItemService">
+    <wsdl:port name="ItemServiceSoap" binding="tns:ItemServiceSoap">
+      <soap:address location="http://chi-srv-dev/alisservices/itemservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ItemServiceSoap12" binding="tns:ItemServiceSoap12">
+      <soap12:address location="http://chi-srv-dev/alisservices/itemservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,152 @@
+﻿body 
+{
+	background-color: #2C4762;
+	padding: 10px 10px 0px 10px;
+}
+
+#content 
+{
+	margin: 10px auto; 
+	height: 100%; 
+	min-height: 90%;
+	background-color: #CBD4D8;
+	min-width: 900px;
+	max-width: 1300px;
+}
+
+.header
+{
+	background-color: #F0F4F8;
+	border: solid 1px #fff;
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+.appTitle
+{
+	color: #6492AF;
+	font-family: Calibri, Arial;
+	font-size: 24pt;
+	font-weight: normal;
+	line-height: 16pt;
+}
+
+.body
+{
+	font-family: Arial;
+	font-size: 10pt;
+	border-right: solid 2px #CBD4D8;
+	padding: 20px 10px 10px 10px;
+
+}
+.innerBody
+{
+	background-color: #fff;
+	padding: 10px 10px 10px 10px;
+	min-height: 530px;
+}
+
+/* Login */
+.login
+{
+	float: right;
+	background-color: #9AC3D7;
+	padding: 3px 3px 3px 3px;
+	margin-right: 10px;
+	font-family: Arial;
+	font-size: 8pt;
+	font-weight: bold;
+	color: #DB501F;
+}
+
+.avatar
+{
+	border: solid 2px #eee;
+}
+
+.login table
+{
+	min-width: 225px;
+}
+
+.loginButton
+{
+	padding: 1px 3px 1px 3px;
+	background-color: #DB501F;
+	color: #fff;
+	text-decoration: none;
+}
+a.loginButton:hover
+{
+	background-color: #fff;
+	color:#DB501F;
+}
+
+.loginMessage
+{
+	font-family: Arial, Helvetica;
+	font-size: 13pt;
+	color: #fff;
+	line-height: 18pt;
+}
+
+/* Message Displays */
+.msgSuccess
+{
+	padding: 3px 10px 1px 10px;
+	background-color: #DBF0B8;
+	color: #44800B;
+	border: solid 1px #44800B;
+	max-width: 100%;
+}
+
+div.msgSuccess a {float: right; font-family: verdana; font-weight:bold;font-size: 11px; text-decoration:none;color: #44800B;}
+div.msgSuccess a:hover {text-decoration: underline;}
+
+
+.msgInfo
+{
+	padding: 3px 10px 1px 10px;
+	background-color: #B6E2F7;
+	color: #004792;
+	border: solid 1px #004792;
+	max-width: 100%;
+	
+}
+
+.msgWarning
+{
+	padding: 3px 10px 1px 10px;
+	background-color: #FEEDAB;
+	color: #965500;
+	border: solid 1px #965500;
+	max-width: 100%;
+}
+
+.msgError
+{
+	padding: 3px 10px 1px 10px;
+	background-color: #FFB3B3;
+	color: #D40008;
+	border: solid 1px #D40008;
+	max-width: 100%;
+	font-family: Arial;
+	font-size: 12px;
+
+}
+
+div.msgError a {float: right; font-family: verdana; font-weight:bold;font-size: 11px; text-decoration:none;color: #D40008; line-height: 11px;}
+div.msgError a:hover {text-decoration: underline;}
+
+.msgText
+{
+	padding-left: 20px;
+	vertical-align:top;
+	font-family: Arial;
+	font-size: 11px;
+	position:relative;
+	top: 7px;
+}
+
+
+.msgIcon { float:left; margin: 0 15px 15px 0; }

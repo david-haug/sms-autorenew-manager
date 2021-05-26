@@ -1,0 +1,72 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="AutoRenewManager.master.vb" Inherits="SMSAutoRenewManager.AutoRenewManager" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>SMS Auto-Renew Manager</title>
+    
+    <link href="Content/main.css" rel="stylesheet" type="text/css" />
+    <link href="Content/pistachio.css" rel="stylesheet" type="text/css" />
+    <link href="Content/site.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="Content/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="Content/menu.js"></script>
+       
+    <asp:ContentPlaceHolder ID="headContentPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="content">
+        <div class="header">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td>
+                        <img alt="Labelmaster" longdesc="Labelmaster logo" src="Images/logo_lmmini.png" 
+                            style="width: 132px; height: 25px" class="lmlogo" /><br />
+                        <h2 class="appTitle">SMS Auto-Renewal Queue</h2>
+                    </td>
+                    <td>
+                        <div class="login">
+                            <table>
+                            <tr>
+                                <td width="50">
+                                    <asp:Image ID="_avatarImage" runat="server" CssClass="avatar" Width="45" Height="46" />
+                                </td>
+                                <td>
+                                    <asp:Label ID="_loginMessageLabel" runat="server" CssClass="loginMessage"></asp:Label><br />
+                                    <asp:Label ID="_signedInLabel" runat="server"></asp:Label>
+                                    <asp:LinkButton ID="_loginLinkButton" runat="server" class="loginButton">Sign Out</asp:LinkButton>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div id="menubar" runat="server">
+            <ul>
+                <li>Pending Renewals</li>
+                     <ul>
+                        <li id="menuExpired"><a href="#">Expired</a></li>
+                        <li id="menuWeek"><a href="#">Expire This Week</a></li>
+                        <li id="menuMonth"><a href="#">Expire This Month</a></li>
+                     </ul>
+                <li><a href="processed.aspx">Processed</a></li>
+            </ul>
+        </div> 
+        
+        <asp:ContentPlaceHolder ID="_bodyContentPlaceHolder" runat="server">
+        
+        </asp:ContentPlaceHolder>
+        
+     
+    </div>
+
+
+    </form>
+</body>
+</html>

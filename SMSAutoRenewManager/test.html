@@ -1,0 +1,428 @@
+﻿
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1"><title>
+	SMS Auto-Renewal Queue
+</title><link href="Content/main.css" rel="stylesheet" type="text/css" /><link href="Content/pistachio.css" rel="stylesheet" type="text/css" /><link href="Content/site.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="Content/jquery-1.4.1.min.js"></script>
+
+    <script src="Content/jquery.tablesorter.min.js" type="text/javascript"></script>
+        <script type="text/javascript" >
+        
+
+        function getRenewalDetail(subscriptionid){
+            //highlight selected row...
+       
+            //get detail..
+            $.getJSON(
+                'ajax/renewalrecorddetail.aspx',{id:subscriptionid},
+                function(json){
+                    $('#detail').html('');
+                    $('#_subscriberLocationLabel').html('');
+                    $('#_subscriptionIDLabel').html('');
+                    //populate the order type and carrier
+                    $('#_subscriptionIDLabel').html(subscriptionid);
+                    $('#_subscriberLocationLabel').html(json.details[0].subscriber.locationname);
+                    $('#_orderTypeSelect').val(json.details[0].ordertype);
+                    $('#_carrierSelect').val(json.details[0].carriername);
+                    $('#_termsSelect').val(json.details[0].carrierterm);
+                    //loop through the items
+                    $.each(json.details, function(i,detail){
+                            $('#detail').append('<div class="detailItem"><table id="' + detail.alissale.transactiondetailid + '"><tr class="detailItemHeader"><td></td><td>Item</td><td>Qty</td><td>Unit Price</td></tr>' + 
+                        '<tr><td class="detailItemHeader">Previous</td><td>' + detail.alissale.name + '</td><td>' + detail.alissale.quantity + '</td><td>' + detail.alissale.price + '</td></tr>' + 
+                        '<tr><td class="detailItemHeader">New</td><td><input type="text" class="detailTextBox" value="' + detail.renewalproduct.name + '"/></td><td><input type="text" class="detailTextBoxShort" value="' + detail.alissale.quantity + '"/></td><td><input type="text" class="detailTextBoxShort" value="' + detail.renewalproduct.price + '"></td></tr></table></div>');
+                    });
+                   
+                });
+        
+                
+        };                                                                                                    
+        
+ 
+       $(document).ready(function() {
+            $("#queueDataTable tr").click(function() {
+                $("#queueDataTable tr").removeClass("dataTableRowSelected");
+                $(this).addClass("dataTableRowSelected");
+            });
+            
+            $("input:checkbox").click(function() {
+                $(this).attr('disabled','true');
+            });
+            
+                        
+        });
+ 
+ 
+ $(document).ready(function() 
+    { 
+        $("#queueDataTable").tablesorter(); 
+    } 
+); 
+        $(document).keydown(function(e) {
+            
+            switch(e.keyCode) { 
+            // User pressed "up" arrow
+            case 38:
+                moveUp();
+            break;
+            // User pressed "down" arrow
+            case 40:
+                moveDown();
+            break;
+            // User pressed "enter"
+
+            };
+            
+        });
+        
+       function moveDown()
+       {
+            //find row with subscription id from detail field...
+            var subID = $('#_subscriptionIDLabel').html();
+            //now find row in table with this subID...
+            //alert($('table').find('#row' + subID).attr("id"));
+            var nextSubID = $('table').find('#row' + subID).next('tr').attr("id").replace("row", "");
+             
+
+             
+            //move to next row...
+            getRenewalDetail(nextSubID);
+           subID = $('#_subscriptionIDLabel').html(); 
+          $("#queueDataTable tr").removeClass("dataTableRowSelected");
+           $('table').find('#row' + subID).addClass("dataTableRowSelected");
+       }
+      
+       function moveUp()
+       {
+            //find row with subscription id from detail field...
+            var subID = $('#_subscriptionIDLabel').html();
+            //now find row in table with this subID...
+            //alert($('table').find('#row' + subID).attr("id"));
+            var nextSubID = $('table').find('#row' + subID).prev('tr').attr("id").replace("row", "");
+             
+            
+           //move to next row...
+           getRenewalDetail(nextSubID);
+           subID = $('#_subscriptionIDLabel').html(); 
+           $("#queueDataTable tr").removeClass("dataTableRowSelected");
+           $('table').find('#row' + subID).addClass("dataTableRowSelected");
+       }
+        
+        function saveRenewalDetail()
+        {
+           //save details...
+           
+          $('div[class=detailItem] table').each(function(){
+
+           
+           var detailToSave = { 
+                "transactionDetailID": $(this).attr('id'), 
+                "carriername":$('#_carrierSelect').val(),
+                "carrierterm":$('#_termsSelect').val(),
+                "ordertype":$('#_orderTypeSelect').val(),
+                "productname":$(this).find('td:eq(9) input').val(),
+                "quantity":$(this).find('td:eq(10) input').val(),
+                "price":$(this).find('td:eq(11) input').val()                
+            };
+           
+           var successMsg = "";
+           $.post("ajax/renewalrecorddetail.aspx?save=true", detailToSave ,function(data){
+            successMsg==data.success;
+            },"json");
+          
+          });
+                
+          //update corresponding checkbox??
+          var sjId = $('#_subscriptionIDLabel').html()
+         //$('input[value=' + sjId + ']').attr('checked', true);    
+        //$('input[value=' + sjId + ']').attr({checked: 'true', disabled: 'false'}); 
+        $('input[value=' + sjId + ']').attr('disabled', false);
+        $('input[value=' + sjId + ']').attr({checked: 'true'}); 
+        }
+
+    </script>   
+     
+</head>
+<body>
+    <form name="form1" method="post" action="RenewalQueue.aspx" id="form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTk2MTQ3NzY1Nw9kFgICAw9kFgYCJw8QZBAVAgdQcm9kdWN0DEJpbGxpbmcgT25seRUCB1Byb2R1Y3QMQmlsbGluZyBPbmx5FCsDAmdnZGQCKw8QZBAVOAtCZXN0IEdyb3VuZBhESEwgSW50bCBEb2N1bWVudC9MZXR0ZXIaREhMIFdvcmxkd2lkZSBQcmlvcml0eSBYcHIORkVEIEVYIDJORCBEQVkURkVEIEVYIEVYUFJFU1MgU0FWRVIVRkVEIEVYIEZJUlNUIE9WRVJOSVRFDUZFRCBFWCBHUk9VTkQURkVEIEVYIElOVEVSTkFUSU9OQUwTRkVEIEVYIElOVEwgRUNPTk9NWRRGRUQgRVggSU5UTCBQUklPUklUWRZGRUQgRVggTEVUVEVSIFBSSU9SSVRZFkZFRCBFWCBMRVRURVIgU1RBTkRBUkQPRkVEIEVYIFBSSU9SSVRZD0ZFRCBFWCBTQVRVUkRBWQ9GRUQgRVggU1RBTkRBUkQOTFRMLUFBQSBDT09QRVIHTFRMLUFCRgxMVEwtQkVTVCBXQVkHTFRMLUNDWBRMVEwtQ3VzdG9tIENvbXBhbmllcxFMVEwtRVNURVMgRVhQUkVTUxFMVEwtRmVkRXggRnJlaWdodBZMVEwtRmVkRXggTmF0aW9uYWwgTFRMCUxUTC1KRVZJQxVMVEwtTWlsbGVuaXVtIEZyZWlnaHQQTFRMLU9MRCBET01JTklPTglMVEwtUiAmIE0LTFRMLVJPQURXQVkITFRMLVNBSUESTFRMLVN0ZCBGb3J3YXJkaW5nD0xUTC1VcHMgRnJlaWdodA9MVEwtVVNGIEhPTExBTkQKTFRMLVlFTExPVxlNZW5sbyBXb3JsZHdpZGUgTG9naXN0aWNzCU1FU1NFTkdFUgZQSUNLVVANUklNIExvZ2lzdGljcwpVUFMgMk5EIEFNC1VQUyAyTkQgRGF5DlVQUyAybmQgTGV0dGVyC1VQUyAzUkQgREFZFVVQUyBDT05TSUdORUUgQklMTElORwxVUFMgRUFSTFkgQU0KVVBTIEdyb3VuZBRVUFMgR3JvdW5kIHRvIENhbmFkYRJVUFMgSU5UTCBFWFBFRElURUQQVVBTIElOVEwgRVhQUkVTUx1VUFMgSU5UTCBTdXBwbHlDaGFpblNvbHV0aW9ucxhVUFMgSU5UTCBXb3JsZHdpZGUgU2F2ZXIOVVBTIE5EQSBMRVRURVINVVBTIE5EQSBTQVZFUgxVUFMgTmV4dCBEYXkLVVBTIFNBVCBERUwPVVNQUyBNQUlMIE1FRElBEFVTUFMgUGFyY2VsIFBvc3QSVVNQUyBQUklPUklUWSBNQUlMFTgLQmVzdCBHcm91bmQYREhMIEludGwgRG9jdW1lbnQvTGV0dGVyGkRITCBXb3JsZHdpZGUgUHJpb3JpdHkgWHByDkZFRCBFWCAyTkQgREFZFEZFRCBFWCBFWFBSRVNTIFNBVkVSFUZFRCBFWCBGSVJTVCBPVkVSTklURQ1GRUQgRVggR1JPVU5EFEZFRCBFWCBJTlRFUk5BVElPTkFME0ZFRCBFWCBJTlRMIEVDT05PTVkURkVEIEVYIElOVEwgUFJJT1JJVFkWRkVEIEVYIExFVFRFUiBQUklPUklUWRZGRUQgRVggTEVUVEVSIFNUQU5EQVJED0ZFRCBFWCBQUklPUklUWQ9GRUQgRVggU0FUVVJEQVkPRkVEIEVYIFNUQU5EQVJEDkxUTC1BQUEgQ09PUEVSB0xUTC1BQkYMTFRMLUJFU1QgV0FZB0xUTC1DQ1gUTFRMLUN1c3RvbSBDb21wYW5pZXMRTFRMLUVTVEVTIEVYUFJFU1MRTFRMLUZlZEV4IEZyZWlnaHQWTFRMLUZlZEV4IE5hdGlvbmFsIExUTAlMVEwtSkVWSUMVTFRMLU1pbGxlbml1bSBGcmVpZ2h0EExUTC1PTEQgRE9NSU5JT04JTFRMLVIgJiBNC0xUTC1ST0FEV0FZCExUTC1TQUlBEkxUTC1TdGQgRm9yd2FyZGluZw9MVEwtVXBzIEZyZWlnaHQPTFRMLVVTRiBIT0xMQU5ECkxUTC1ZRUxMT1cZTWVubG8gV29ybGR3aWRlIExvZ2lzdGljcwlNRVNTRU5HRVIGUElDS1VQDVJJTSBMb2dpc3RpY3MKVVBTIDJORCBBTQtVUFMgMk5EIERheQ5VUFMgMm5kIExldHRlcgtVUFMgM1JEIERBWRVVUFMgQ09OU0lHTkVFIEJJTExJTkcMVVBTIEVBUkxZIEFNClVQUyBHcm91bmQUVVBTIEdyb3VuZCB0byBDYW5hZGESVVBTIElOVEwgRVhQRURJVEVEEFVQUyBJTlRMIEVYUFJFU1MdVVBTIElOVEwgU3VwcGx5Q2hhaW5Tb2x1dGlvbnMYVVBTIElOVEwgV29ybGR3aWRlIFNhdmVyDlVQUyBOREEgTEVUVEVSDVVQUyBOREEgU0FWRVIMVVBTIE5leHQgRGF5C1VQUyBTQVQgREVMD1VTUFMgTUFJTCBNRURJQRBVU1BTIFBhcmNlbCBQb3N0ElVTUFMgUFJJT1JJVFkgTUFJTBQrAzhnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2RkAi8PEGQQFQMHUFJFUEFJRBBTVEFOREFSRCBGUkVJR0hUCU5PIENIQVJHRRUDB1BSRVBBSUQQU1RBTkRBUkQgRlJFSUdIVAlOTyBDSEFSR0UUKwMDZ2dnZGRkoPOtrfS3KnPiZdH2ngvlpvXnwDw=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWEALc7pvtDQLW4/fiCQLMz4n3CQLbtaTtCwL/uvHoBQKigI3MBQKhgI3MBQKcgI3MBQKbgI3MBQKdgI3MBQKYgI3MBQKXgI3MBQK3qZXRAwLaxsKDBAKara+6BAK/g/XiDygV02eplYfYu4fwPoELTex/7fnT" />
+</div>
+    <div id="content">
+        <div class="header">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td>
+                        <img alt="Labelmaster" longdesc="Labelmaster logo" src="Images/logo_lmmini.png" 
+                            style="width: 132px; height: 25px" class="lmlogo" /><br />
+                        <h2 class="appTitle">SMS Auto-Renewal Queue</h2>
+                    </td>
+                    <td>
+                        <div class="login">
+                            <table>
+                            <tr>
+                                <td width="50">
+                                    <img src="Images/avatar_default.png" width="46" height="46" class="avatar" />
+                                </td>
+                                <td>
+                                    <span id="_loginMessageLabel" class="loginMessage">Hello, David</span><br />
+                                    <span id="_signedInLabel">Signed in as DAVID H</span>
+                                    <a id="_loginLinkButton" class="loginButton" href="javascript:__doPostBack('_loginLinkButton','')">Sign Out</a>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+                
+ 
+        
+
+        </div>
+        
+        <div id="menubar">
+            <ul>
+                <li class="selected">Pending Renewals</li>
+                     <ul>
+                        <li><a href="#">Expired</a></li>
+                        <li><a href="#">Expire This Week</a></li>
+                        <li><a href="#">Expire This Month</a></li>
+                     </ul>
+                <li><a href="#">Processed</a></li>
+            </ul>
+        
+        </div> 
+        
+        <div class="body">
+            <div class="toolbar">
+                <div style="float: left">
+                    <img src="Images/toolbar_lborder_pistachio.png" height="44" width="6" class="toolbarLeftBorder"/>
+                    <div class="toolbarContent">
+                        <span id="Label1">Filter by Expire Date</span>&nbsp;&nbsp;&nbsp;
+                        <span id="Label9" class="toolbarField">From</span>
+                        <input name="_startDateFilerTextBox" type="text" value="1/1/1980" id="_startDateFilerTextBox" class="toolbarTextBox" />
+                        <span id="Label8" class="toolbarField">To</span>
+                        <input name="_endDateFilterTextBox" type="text" value="1/1/2012" id="_endDateFilterTextBox" class="toolbarTextBox" />
+                        <a id="_filterLinkButton" class="toolbarLinkButton" href="javascript:__doPostBack('_filterLinkButton','')">Filter</a>
+                    </div>
+                </div>
+                <img src="Images/toolbar_rborder_pistachio.png" height="44" width="6" class="toolbarRightBorder" />
+            </div>
+            
+            <div class="innerBody">
+        
+            <!--message display here-->
+            <div id="_messageDiv">
+            
+            </div>
+            
+            <table id="contentTable" width="100%" border="0" cellpadding="10" cellspacing="5">
+            <tr>
+            
+            <td width="500" valign="top">
+            <div class="queueInnerBody">
+                <span id="_pageHeading" class="pageHeading">Pending Renewals</span>
+
+                <div class="queueTable">
+                    <table id="queueDataTable" cellspacing="0" cellpadding="5" width="95%">
+    <thead>
+	<tr class="dataTableCaption">
+		<th>Process</th>
+		<th>Subscription ID</th>
+		<th>End Date</th>
+		<th>Account</th>
+		<th>Org. Invoice Number</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr onclick="javascript:  getRenewalDetail(33352)" class="dataTableRow" ID="row33352">
+		<td><input name="chkPost_33352" type="checkbox" id="chkPost_33352" value="33352" disabled="disabled" class="queueCheck" /></td>
+		<td>33352</td>
+		<td>11/30/2010</td>
+		<td>0405470</td>
+		<td>J67803-002</td>
+	</tr>
+	<tr onclick="javascript:  getRenewalDetail(33353)" class="dataTableRowAlternating" ID="row33353">
+		<td><input name="chkPost_33353" type="checkbox" id="chkPost_33353" value="33353" disabled="disabled" class="queueCheck" /></td>
+		<td>33353</td>
+		<td>11/30/2010</td>
+		<td>1259067</td>
+		<td>J67638-002</td>
+	</tr>
+	<tr onclick="javascript:  getRenewalDetail(33354)" class="dataTableRow" ID="row33354">
+		<td><input name="chkPost_33354" type="checkbox" id="chkPost_33354" value="33354" disabled="disabled" class="queueCheck" /></td>
+		<td>33354</td>
+		<td>12/9/2010</td>
+		<td>0357841</td>
+		<td>J67946-001</td>
+	</tr>
+	<tr onclick="javascript:  getRenewalDetail(33355)" class="dataTableRowAlternating" ID="row33355">
+		<td><input name="chkPost_33355" type="checkbox" id="chkPost_33355" value="33355" disabled="disabled" class="queueCheck" /></td>
+		<td>33355</td>
+		<td>12/1/2010</td>
+		<td>0255213</td>
+		<td>J67929-001</td>
+	</tr>
+	<tr onclick="javascript:  getRenewalDetail(33357)" class="dataTableRow" ID="row33357">
+		<td><input name="chkPost_33357" type="checkbox" id="chkPost_33357" value="33357" disabled="disabled" class="queueCheck" /></td>
+		<td>33357</td>
+		<td>11/30/2010</td>
+		<td>0259218</td>
+		<td>J66262-001</td>
+	</tr>
+	<tr onclick="javascript:  getRenewalDetail(33358)" class="dataTableRowAlternating" ID="row33358">
+		<td><input name="chkPost_33358" type="checkbox" id="chkPost_33358" value="33358" disabled="disabled" class="queueCheck" /></td>
+		<td>33358</td>
+		<td>12/1/2010</td>
+		<td>0316749</td>
+		<td>J68113-002</td>
+	</tr>
+	<tr onclick="javascript:  getRenewalDetail(33359)" class="dataTableRow" ID="row33359">
+		<td><input name="chkPost_33359" type="checkbox" id="chkPost_33359" value="33359" disabled="disabled" class="queueCheck" /></td>
+		<td>33359</td>
+		<td>12/1/2010</td>
+		<td>0316749</td>
+		<td>J68113-001</td>
+	</tr>
+	</tbody>
+</table>
+
+                </div>
+                <br />
+
+                <a id="_postLinkButton" class="largeLinkButton" href="javascript:__doPostBack('_postLinkButton','')">Post Checked</a>
+            </div>
+            </td>
+            <td valign="top">
+            <div class="queueDetailBox">
+                <span id="Label2" class="detailHeading">Selected Renewal Details</span>
+                <table>
+                    <tr>
+                        <td><span id="Label6" class="detailItemHeader">Subscription ID</span></td>
+                        <td><span id="_subscriptionIDLabel"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="Label7" class="detailItemHeader">Company</span></td>
+                        <td><span id="_subscriberLocationLabel"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="Label3" class="detailItemHeader">Order Type</span></td>
+                        <td> <select name="_orderTypeSelect" id="_orderTypeSelect" class="detailSelect">
+	<option value="Product">Product</option>
+	<option value="Billing Only">Billing Only</option>
+</select></td>
+                    </tr>
+                    <tr>
+                        <td><span id="Label4" class="detailItemHeader">Carrier</span></td>
+                        <td><select name="_carrierSelect" id="_carrierSelect" class="detailSelect">
+	<option value="Best Ground">Best Ground</option>
+	<option value="DHL Intl Document/Letter">DHL Intl Document/Letter</option>
+	<option value="DHL Worldwide Priority Xpr">DHL Worldwide Priority Xpr</option>
+	<option value="FED EX 2ND DAY">FED EX 2ND DAY</option>
+	<option value="FED EX EXPRESS SAVER">FED EX EXPRESS SAVER</option>
+	<option value="FED EX FIRST OVERNITE">FED EX FIRST OVERNITE</option>
+	<option value="FED EX GROUND">FED EX GROUND</option>
+	<option value="FED EX INTERNATIONAL">FED EX INTERNATIONAL</option>
+	<option value="FED EX INTL ECONOMY">FED EX INTL ECONOMY</option>
+	<option value="FED EX INTL PRIORITY">FED EX INTL PRIORITY</option>
+	<option value="FED EX LETTER PRIORITY">FED EX LETTER PRIORITY</option>
+	<option value="FED EX LETTER STANDARD">FED EX LETTER STANDARD</option>
+	<option value="FED EX PRIORITY">FED EX PRIORITY</option>
+	<option value="FED EX SATURDAY">FED EX SATURDAY</option>
+	<option value="FED EX STANDARD">FED EX STANDARD</option>
+	<option value="LTL-AAA COOPER">LTL-AAA COOPER</option>
+	<option value="LTL-ABF">LTL-ABF</option>
+	<option value="LTL-BEST WAY">LTL-BEST WAY</option>
+	<option value="LTL-CCX">LTL-CCX</option>
+	<option value="LTL-Custom Companies">LTL-Custom Companies</option>
+	<option value="LTL-ESTES EXPRESS">LTL-ESTES EXPRESS</option>
+	<option value="LTL-FedEx Freight">LTL-FedEx Freight</option>
+	<option value="LTL-FedEx National LTL">LTL-FedEx National LTL</option>
+	<option value="LTL-JEVIC">LTL-JEVIC</option>
+	<option value="LTL-Millenium Freight">LTL-Millenium Freight</option>
+	<option value="LTL-OLD DOMINION">LTL-OLD DOMINION</option>
+	<option value="LTL-R &amp; M">LTL-R &amp; M</option>
+	<option value="LTL-ROADWAY">LTL-ROADWAY</option>
+	<option value="LTL-SAIA">LTL-SAIA</option>
+	<option value="LTL-Std Forwarding">LTL-Std Forwarding</option>
+	<option value="LTL-Ups Freight">LTL-Ups Freight</option>
+	<option value="LTL-USF HOLLAND">LTL-USF HOLLAND</option>
+	<option value="LTL-YELLOW">LTL-YELLOW</option>
+	<option value="Menlo Worldwide Logistics">Menlo Worldwide Logistics</option>
+	<option value="MESSENGER">MESSENGER</option>
+	<option value="PICKUP">PICKUP</option>
+	<option value="RIM Logistics">RIM Logistics</option>
+	<option value="UPS 2ND AM">UPS 2ND AM</option>
+	<option value="UPS 2ND Day">UPS 2ND Day</option>
+	<option value="UPS 2nd Letter">UPS 2nd Letter</option>
+	<option value="UPS 3RD DAY">UPS 3RD DAY</option>
+	<option value="UPS CONSIGNEE BILLING">UPS CONSIGNEE BILLING</option>
+	<option value="UPS EARLY AM">UPS EARLY AM</option>
+	<option value="UPS Ground">UPS Ground</option>
+	<option value="UPS Ground to Canada">UPS Ground to Canada</option>
+	<option value="UPS INTL EXPEDITED">UPS INTL EXPEDITED</option>
+	<option value="UPS INTL EXPRESS">UPS INTL EXPRESS</option>
+	<option value="UPS INTL SupplyChainSolutions">UPS INTL SupplyChainSolutions</option>
+	<option value="UPS INTL Worldwide Saver">UPS INTL Worldwide Saver</option>
+	<option value="UPS NDA LETTER">UPS NDA LETTER</option>
+	<option value="UPS NDA SAVER">UPS NDA SAVER</option>
+	<option value="UPS Next Day">UPS Next Day</option>
+	<option value="UPS SAT DEL">UPS SAT DEL</option>
+	<option value="USPS MAIL MEDIA">USPS MAIL MEDIA</option>
+	<option value="USPS Parcel Post">USPS Parcel Post</option>
+	<option value="USPS PRIORITY MAIL">USPS PRIORITY MAIL</option>
+</select></td>
+                    </tr>
+                    <tr>
+                        <td><span id="Label5" class="detailItemHeader">Carrier Term</span></td>
+                        <td><select name="_termsSelect" id="_termsSelect" class="detailSelect">
+	<option value="PREPAID">PREPAID</option>
+	<option selected="selected" value="STANDARD FREIGHT">STANDARD FREIGHT</option>
+	<option value="NO CHARGE">NO CHARGE</option>
+</select></td>
+                    </tr>
+                </table>
+                
+                <div id="detail">
+                </div>
+                <br /><br />
+                <a href="javascript:saveRenewalDetail()" id="_detailSaveButton" class="detailLinkButton">Mark to Post</a><br />
+            </div>
+            </td>
+            </tr>
+            </table>
+            </div>
+            
+            
+        </div>
+    </div>
+    </form>
+    </body>
+</html>

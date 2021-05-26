@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="FetchUserById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="alisUserID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchUserByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FetchUserByIdResult" type="tns:AlisSecurityUser" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AlisSecurityUser">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecurityRights" type="tns:ArrayOfSecurityRight" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSecurityRight">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SecurityRight" nillable="true" type="tns:SecurityRight" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SecurityRight">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecurityRightID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchUserByUserName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="alisUserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchUserByUserNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FetchUserByUserNameResult" type="tns:AlisSecurityUser" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidatePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="alisUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidatePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidatePasswordResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FetchUserByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:FetchUserById" />
+  </wsdl:message>
+  <wsdl:message name="FetchUserByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:FetchUserByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchUserByUserNameSoapIn">
+    <wsdl:part name="parameters" element="tns:FetchUserByUserName" />
+  </wsdl:message>
+  <wsdl:message name="FetchUserByUserNameSoapOut">
+    <wsdl:part name="parameters" element="tns:FetchUserByUserNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidatePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidatePassword" />
+  </wsdl:message>
+  <wsdl:message name="ValidatePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidatePasswordResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SecurityUserServiceSoap">
+    <wsdl:operation name="FetchUserById">
+      <wsdl:input message="tns:FetchUserByIdSoapIn" />
+      <wsdl:output message="tns:FetchUserByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchUserByUserName">
+      <wsdl:input message="tns:FetchUserByUserNameSoapIn" />
+      <wsdl:output message="tns:FetchUserByUserNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidatePassword">
+      <wsdl:input message="tns:ValidatePasswordSoapIn" />
+      <wsdl:output message="tns:ValidatePasswordSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SecurityUserServiceSoap" type="tns:SecurityUserServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FetchUserById">
+      <soap:operation soapAction="http://tempuri.org/FetchUserById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchUserByUserName">
+      <soap:operation soapAction="http://tempuri.org/FetchUserByUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidatePassword">
+      <soap:operation soapAction="http://tempuri.org/ValidatePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SecurityUserServiceSoap12" type="tns:SecurityUserServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FetchUserById">
+      <soap12:operation soapAction="http://tempuri.org/FetchUserById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchUserByUserName">
+      <soap12:operation soapAction="http://tempuri.org/FetchUserByUserName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidatePassword">
+      <soap12:operation soapAction="http://tempuri.org/ValidatePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SecurityUserService">
+    <wsdl:port name="SecurityUserServiceSoap" binding="tns:SecurityUserServiceSoap">
+      <soap:address location="http://chi-srv-dev/alisservices/securityuserservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SecurityUserServiceSoap12" binding="tns:SecurityUserServiceSoap12">
+      <soap12:address location="http://chi-srv-dev/alisservices/securityuserservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

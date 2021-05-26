@@ -1,0 +1,55 @@
+<html>
+	<head>
+	<script type="text/javascript" src="Content/jquery-1.4.1.min.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			.highlight{
+				color:white;
+				background-color:black;
+				cursor: pointer;
+			}
+		</style>
+		
+		<table id="example" border='1' id="tabl1">
+			<thead>
+				<tr>
+					<td>First Name</td>
+					<td>Last Name</td>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+				<tr id="row">
+					<td onclick="clickRow()" id="cell">John</td>
+					<td>Smith</td>
+				</tr>
+				<tr>
+					<td>Jane</td>
+					<td>Doe</td>
+				</tr>
+				<tr>
+					<td>Bob</td>
+					<td>Squarepants</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#example tbody td").hover(function() {
+					$(this).parents('tr').addClass('highlight');
+				}, function() {
+					$(this).parents('tr').removeClass('highlight');
+				});
+			});
+			
+			
+			function clickRow()
+			{
+                alert('worked?' + this.ID);
+                
+               $(this).parents('tr').css('background-color','red');			
+			};
+		 </script>
+	</body>
+</html>

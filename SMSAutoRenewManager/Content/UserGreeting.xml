@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<usergreeting>
+<greeting>
+	<text>Good Morning</text>
+	<startdate></startdate>
+	<enddate></enddate>
+	<starttime>6:00 AM</starttime>
+	<endtime>12:00 PM</endtime>
+	<appearancerate>75</appearancerate>
+	<scope>public</scope>
+	<userids></userids>
+</greeting>
+<greeting>
+	<text>Happy April</text>
+	<startdate>4/1/2010</startdate>
+	<enddate>5/1/2010</enddate>
+	<starttime></starttime>
+	<endtime></endtime>
+	<appearancerate>50</appearancerate>
+	<scope>public</scope>
+	<userids></userids>
+</greeting>
+<greeting>
+	<text>Here Again</text>
+	<startdate></startdate>
+	<enddate></enddate>
+	<starttime></starttime>
+	<endtime></endtime>
+	<appearancerate>50</appearancerate>
+	<scope>private</scope>
+	<userids>1136</userids>
+</greeting>
+</usergreeting>

@@ -1,0 +1,246 @@
+﻿body {
+}
+
+.pageHeading
+{
+	color: #73B70C;
+	font-family: Calibri,Arial;
+	font-size: 14pt;
+	font-weight: bold;
+	line-height: 20pt;
+}
+
+#menubar
+{
+	background-color: #73B70C;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 11pt;
+	
+	height: 30px;
+	color: #fff;
+	border: solid 1px #fff;
+	border-collapse:collapse;
+	z-index: 1000;
+	position: relative;
+}
+
+
+#menubar ul
+{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background-color: #73B70C;
+}
+
+#menubar li
+{
+  float: left;
+  position: relative;
+  width: 10em;
+  height: 23px;
+  padding-top: 7px;
+  padding-left: 10px;
+  
+}
+#menubar a
+{
+	text-decoration: none;
+	color: #fff;
+}
+#menubar  li:hover {background-color: #86D50E;}
+
+#menubar li ul {
+  display: none;
+  position: absolute; 
+  top: 30px;
+  left: 0;
+  }
+  
+
+#menubar  li:hover ul { display: block; }
+
+#menubar .selected
+{
+	background-color: #578B09;
+}
+#menubar .selected:hover
+{
+	background-color: #578B09;
+}
+
+#menubar img
+{
+	padding-left: 10px;
+	position: relative;
+	top: 3px;
+}
+
+
+/*	Datatable */
+.dataTableCaption
+{
+
+}
+.dataTableCaption th
+{
+	font-family: Arial;
+	color: #747475;
+	font-size: 9pt;
+	font-weight: normal;
+	padding: 10px 3px 3px 3px;
+	border-bottom: solid 1px #e2e2e4;
+}
+.dataTableRow
+{
+	
+}
+
+.dataTableRow td
+{
+	background-color: #fff;
+	font-family: Arial;
+	font-size: 9pt;
+	border-bottom: solid 1px #e2e2e4;
+	padding: 3px 3px 3px 3px;
+
+}
+
+.dataTableRowAlternating
+{
+	
+	
+}
+
+.dataTableRowAlternating td
+{
+	font-family: Arial;
+	font-size: 9pt;
+	background-color: #F6FBFF;
+	border-bottom: solid 1px #e2e2e4;
+	padding: 3px 3px 3px 3px;
+
+}
+
+.dataTable table
+{
+	font-family: Arial;
+	font-size: 9pt;
+	
+}
+
+.dataTableRowSelected td
+{
+	background-color: #FEFFA2;
+}
+
+.dataTableArrow
+{
+	padding-right: 1px;
+}
+
+.dataTablePager
+{
+	font-family: helvetica, arial, sans serif;
+	font-size: 12px; 
+	color: #999;
+}
+
+/*	Toolbar */
+.toolbar
+{
+	background-color: #AFD677;
+	border-top: solid 2px #fff;
+	border-bottom: solid 2px #fff;
+	height: 40px;
+	color: #fff;
+	font-family: Arial;
+	font-size: 13pt;
+	font-weight: bold;
+}
+
+.toolbarTextBox
+{
+	border: solid 1px #44800B;
+	font-family: helvetica, arial, sans serif;
+	padding-left: 2px;
+	font-size: 16px; 
+	padding-top: 2px;
+	padding-bottom: 2px;
+	
+}
+
+.toolbarContent
+{
+	padding-top: 7px;
+	min-width: 400px;
+}
+
+.toolbarLeftBorder
+{
+	float: left;
+	position: relative;
+	top: -2px;
+	left: -3px;
+	z-index: 10;
+}
+
+.toolbarRightBorder
+{
+	float:right;
+	position: relative;
+	top: -2px;
+	left: 3px;
+	width: 6px;
+}
+
+.toolbarLinkButton
+{
+	border: solid 1px #fff;
+	color: #fff;
+	font-family: Arial;
+	font-size: 11px;
+	padding: 3px 5px 3px 5px;
+	text-decoration: none;
+	font-weight: bold;
+	background-color: #578B09;
+	position: relative;
+	top: -4px;
+}
+
+.toolbarLinkButton:hover
+{
+	background-color: #fff;
+	color: #578B09;
+	border-color: #578B09;
+}
+
+.toolbarField
+{
+	font-size: 12px;
+	font-weight: bold;	
+}
+
+
+
+.largeLinkButton
+{
+	border: solid 1px #fff;
+	color: #fff;
+	font-family: Arial;
+	font-size: 11pt;
+	padding: 5px 5px 5px 5px;
+	text-decoration: none;
+	font-weight: bold;
+	background-color: #578B09;
+}
+
+.largeLinkButton:hover
+{
+	background-color: #fff;
+	color: #578B09;
+	border-color: #578B09;
+
+}
+

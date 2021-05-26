@@ -1,0 +1,6 @@
+SMSAutoRenewManager
+
+Release Notes
+
+7/29/2010
+-- Fixed error that prevented orders from posting in ALIS if renewal Company Name is longer than 32 characters.  ALIS has 32 character max, but SMS allows more.  Company Name in the ALIS order will be truncated to 32.

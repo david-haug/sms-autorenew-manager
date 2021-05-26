@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1636A259-4F4E-49B4-B828-0F5FEA623D4C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SMSAutoRenewManager</RootNamespace>
+    <AssemblyName>SMSAutoRenewManager</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>SMSAutoRenewManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>SMSAutoRenewManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Labelmaster.AlisOrder.BusinessObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Labelmaster.AlisOrder\Labelmaster.AlisOrder.BusinessObjects\Labelmaster.AlisOrder.BusinessObjects\bin\Debug\Labelmaster.AlisOrder.BusinessObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="Labelmaster.AlisOrder.Repositories, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Labelmaster.AlisOrder\Labelmaster.AlisOrder.Repositories\bin\Debug\Labelmaster.AlisOrder.Repositories.dll</HintPath>
+    </Reference>
+    <Reference Include="Labelmaster.AlisOrder.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Labelmaster.AlisOrder\Labelmaster.AlisOrder.Services\Labelmaster.AlisOrder.Services\bin\Debug\Labelmaster.AlisOrder.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Labelmaster.AlisOrder.Validation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Labelmaster.AlisOrder\Labelmaster.AlisOrder.Validation\bin\Debug\Labelmaster.AlisOrder.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Labelmaster.Data.Llbl, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SMSDataTest\SMSDataTest\bin\Debug\Labelmaster.Data.Llbl.dll</HintPath>
+    </Reference>
+    <Reference Include="Labelmaster.Data.Sms.LlblBusiness, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SMSDataTest\SMSDataTest\bin\Debug\Labelmaster.Data.Sms.LlblBusiness.dll</HintPath>
+    </Reference>
+    <Reference Include="Labelmaster.Data.Sms.LlblDBGeneric, Version=1.0.3705.19870, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SMSDataTest\SMSDataTest\bin\Debug\Labelmaster.Data.Sms.LlblDBGeneric.dll</HintPath>
+    </Reference>
+    <Reference Include="Labelmaster.Data.Sms.LlblDBSpecific, Version=1.0.3705.19870, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SMSDataTest\SMSDataTest\bin\Debug\Labelmaster.Data.Sms.LlblDBSpecific.dll</HintPath>
+    </Reference>
+    <Reference Include="SD.LLBLGen.Pro.DQE.SqlServer.NET20, Version=2.0.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SMSDataTest\SMSDataTest\bin\Debug\SD.LLBLGen.Pro.DQE.SqlServer.NET20.dll</HintPath>
+    </Reference>
+    <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses.NET20, Version=2.0.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SMSDataTest\SMSDataTest\bin\Debug\SD.LLBLGen.Pro.ORMSupportClasses.NET20.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Ajax\queuehtmltable.aspx" />
+    <Content Include="Ajax\renewalrecord.aspx" />
+    <Content Include="Ajax\renewalrecorddetail.aspx" />
+    <Content Include="Content\jquery-1.4.1.min.js" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\pistachio.css" />
+    <Content Include="Content\RenewalQueue.js" />
+    <Content Include="Content\site.css" />
+    <Content Include="Content\UserGreeting.xml" />
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\avatar_default.png" />
+    <Content Include="Images\logo_lmmini.png" />
+    <Content Include="Images\menubar_more_pistachio.png" />
+    <Content Include="Images\message_error.png" />
+    <Content Include="Images\message_info.png" />
+    <Content Include="Images\message_success.png" />
+    <Content Include="Images\message_warning.png" />
+    <Content Include="Images\sort_down.gif" />
+    <Content Include="Images\sort_up.gif" />
+    <Content Include="Images\throbber64.gif" />
+    <Content Include="Images\throbber_detail.gif" />
+    <Content Include="Images\throbber_lines_64.gif" />
+    <Content Include="Images\toolbar_lborder_pistachio.png" />
+    <Content Include="Images\toolbar_rborder_pistachio.png" />
+    <Content Include="jquerytest.html" />
+    <Content Include="login.aspx" />
+    <Content Include="Processed.aspx" />
+    <Content Include="RenewalQueue.aspx" />
+    <Content Include="rights.html" />
+    <Content Include="session.aspx" />
+    <Content Include="test.aspx" />
+    <Content Include="test.html" />
+    <None Include="Web References\AlisServices\securityuserservice.disco" />
+    <None Include="Web References\AlisItemService\itemservice.disco" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ajax\queuehtmltable.aspx.designer.vb">
+      <DependentUpon>queuehtmltable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\queuehtmltable.aspx.vb">
+      <DependentUpon>queuehtmltable.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\renewalrecord.aspx.designer.vb">
+      <DependentUpon>renewalrecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\renewalrecord.aspx.vb">
+      <DependentUpon>renewalrecord.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\renewalrecorddetail.aspx.designer.vb">
+      <DependentUpon>renewalrecorddetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\renewalrecorddetail.aspx.vb">
+      <DependentUpon>renewalrecorddetail.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application.vb" />
+    <Compile Include="AutoRenewManager.Master.designer.vb">
+      <DependentUpon>AutoRenewManager.Master</DependentUpon>
+    </Compile>
+    <Compile Include="AutoRenewManager.Master.vb">
+      <DependentUpon>AutoRenewManager.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AutoRenewManagerPage.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.vb">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlDataTable.vb" />
+    <Compile Include="login.aspx.designer.vb">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.vb">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mtest.aspx.designer.vb">
+      <DependentUpon>mtest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mtest.aspx.vb">
+      <DependentUpon>mtest.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="PresentationModel\AlisOrderFactory.vb" />
+    <Compile Include="PresentationModel\AlisSale.vb" />
+    <Compile Include="PresentationModel\AutoRenewEvent.vb" />
+    <Compile Include="PresentationModel\AutoRenewEventTypes.vb" />
+    <Compile Include="PresentationModel\AutoRenewUserService.vb" />
+    <Compile Include="PresentationModel\InvoiceLineItem.vb" />
+    <Compile Include="PresentationModel\IPresentationObject.vb" />
+    <Compile Include="PresentationModel\OrderService.vb" />
+    <Compile Include="PresentationModel\ProcessedRenewal.vb" />
+    <Compile Include="PresentationModel\ProcessedRenewalRepository.vb" />
+    <Compile Include="PresentationModel\RemovedRenewal.vb" />
+    <Compile Include="PresentationModel\RemoveRenewalEvent.vb" />
+    <Compile Include="PresentationModel\RemoveRenewalService.vb" />
+    <Compile Include="PresentationModel\RenewalProductService.vb" />
+    <Compile Include="PresentationModel\RenewalProduct.vb" />
+    <Compile Include="PresentationModel\RenewalRecord.vb" />
+    <Compile Include="PresentationModel\RenewalRecordDetail.vb" />
+    <Compile Include="PresentationModel\RenewalRecordRepository.vb" />
+    <Compile Include="PresentationModel\SelectListsService.vb" />
+    <Compile Include="PresentationModel\SqlAutoRenewEventRepository.vb" />
+    <Compile Include="PresentationModel\SqlProcessedRenewalRepository.vb" />
+    <Compile Include="PresentationModel\SqlRemovedRenewalRepository.vb" />
+    <Compile Include="PresentationModel\SqlRenewalRecordRepository.vb" />
+    <Compile Include="PresentationModel\Subscriber.vb" />
+    <Compile Include="PresentationModel\Subscription.vb" />
+    <Compile Include="PresentationModel\AutoRenewUser.vb" />
+    <Compile Include="Processed.aspx.designer.vb">
+      <DependentUpon>Processed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Processed.aspx.vb">
+      <DependentUpon>Processed.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Removed.aspx.designer.vb">
+      <DependentUpon>Removed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Removed.aspx.vb">
+      <DependentUpon>Removed.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="RenewalQueue.aspx.designer.vb">
+      <DependentUpon>RenewalQueue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RenewalQueue.aspx.vb">
+      <DependentUpon>RenewalQueue.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="session.aspx.designer.vb">
+      <DependentUpon>session.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="session.aspx.vb">
+      <DependentUpon>session.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="SMSAutoRenewException.vb" />
+    <Compile Include="test.aspx.designer.vb">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="test.aspx.vb">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Web References\AlisItemService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\AlisServices\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AutoRenewManager.Master" />
+    <Content Include="Content\menu.js" />
+    <Content Include="mtest.aspx" />
+    <Content Include="releasenotes.txt" />
+    <Content Include="Removed.aspx" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\AlisItemService\itemservice.wsdl" />
+    <None Include="Web References\AlisItemService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\AlisServices\AlisSecurityUser.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AlisServices\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\AlisServices\securityuserservice.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://chi-srv-dev/alisservices/itemservice.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AlisItemService\</RelPath>
+      <UpdateFromURL>http://chi-srv-dev/alisservices/itemservice.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SMSAutoRenewManager_AlisItemService_ItemService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://chi-srv-dev/alisservices/securityuserservice.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AlisServices\</RelPath>
+      <UpdateFromURL>http://chi-srv-dev/alisservices/securityuserservice.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SMSAutoRenewManager_AlisServices_SecurityUserService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3487</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
